@@ -1,0 +1,31 @@
+<html>
+
+    <head>
+        <title>Список дел</title>
+    </head>
+
+    <body>
+
+        {% if  list %}
+            <div>Список дел:</div>
+        {% endif %}
+        {% for todo in  list %}
+
+            <b>{{ todo.description }} </b>
+            {% if todo.completed %}
+                <b> выполнен </b>
+            {% else %}
+                <b> выполняется </b>
+            {% endif %}
+            <b> <a href="{% url 'todo:update_todo' pk=todo.id %}">{{ todo.id }}</a> </b>
+            <br/>
+        {% endfor %}
+        <form action="{% url "todo:todo_list" %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+
+    </body>
+
+</html>
