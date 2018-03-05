@@ -25,7 +25,7 @@ SECRET_KEY = '()iq(^8xq3)0$r8d6ke2z91ed6!^*mb5%izqv^aklpo+m0vwp='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo.apps.TodoConfig',
+    'core.apps.CoreConfig',
 ]
+
+AUTH_USER_MODEL = 'core.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +54,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'django_hw.urls'
+
+LOGIN_URL = 'core:login'
+
+LOGIN_REDIRECT_URL = 'todo:todo_list'
+LOGOUT_REDIRECT_URL = 'todo:todo_list'
 
 TEMPLATES = [
     {
@@ -76,11 +84,12 @@ WSGI_APPLICATION = 'django_hw.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_hw',
-        'USER': 'django',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER' : 'user_name',
+        'PASSWORD' : 'password',
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
     }
 }
 

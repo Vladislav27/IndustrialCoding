@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class Todo(models.Model):
-    #author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     description = models.TextField(max_length=1000)
     completed = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)

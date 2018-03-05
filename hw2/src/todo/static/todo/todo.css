@@ -1,0 +1,23 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+ol{
+    list-style: none;
+}
+ol > li{
+    padding-left: 20px;
+    position: relative;
+    margin: 10px;
+}
+ol > li.positive:before{
+    content: '✔';
+    position: absolute; top: 0; left: 0;
+    color: black;
+}
+ol > li.negative:before{
+    content: ' ';
+    position: absolute; top: 0; left: 0;
+}

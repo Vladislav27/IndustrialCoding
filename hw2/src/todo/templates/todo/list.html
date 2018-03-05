@@ -1,31 +1,48 @@
-<html>
+{% extends "core/base.html" %}
+{% load static %}
 
-    <head>
-        <title>Список дел</title>
-    </head>
+{% block title %}
+    Список дел
+{% endblock %}
 
-    <body>
+{% block extra %}
+    <link rel="stylesheet" href="{% static "todo/todo.css" %}">
+{% endblock %}
 
-        {% if  list %}
-            <div>Список дел:</div>
-        {% endif %}
-        {% for todo in  list %}
+{% block content %}
 
-            <b>{{ todo.description }} </b>
-            {% if todo.completed %}
-                <b> выполнен </b>
-            {% else %}
-                <b> выполняется </b>
-            {% endif %}
-            <b> <a href="{% url 'todo:update_todo' pk=todo.id %}">{{ todo.id }}</a> </b>
-            <br/>
-        {% endfor %}
-        <form action="{% url "todo:todo_list" %}" method="post">
+        <ol>
+            {% for todo in  list %}
+
+                {% if todo.completed %}
+                    <li class="positive">{{ todo.description }}
+                        {% if user == todo.author %}
+                            <a href="{% url 'todo:update_todo' pk=todo.id %}">{{ todo.id }}</a>
+                        {% else %}
+                            <span>{{ todo.id }}</span>
+                            </li>
+                        {% endif %}
+                {% else %}
+                    <li class="negative">{{ todo.description }}
+                    {% if user == todo.author %}
+                            <a href="{% url 'todo:update_todo' pk=todo.id %}">{{ todo.id }}</a>
+                        {% else %}
+                            <span>{{ todo.id }}</span>
+                            </li>
+                        {% endif %}
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+        </ol>
+    {% if not user.is_anonymous %}
+         <form action="{% url "todo:todo_list" %}" method="post">
+          <div class="form-group">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit">
+            {{ form }}
+          </div>
+
         </form>
+    {% endif %}
 
-    </body>
-
-</html>
+{% endblock %}

@@ -14,7 +14,7 @@ class TodoList(CreateView):
     success_url = reverse_lazy('todo:todo_list')
 
     def form_valid(self, form):
-        #form.instance.author = self.request.user
+        form.instance.author = self.request.user
         form.instance.completed = False
         return super(TodoList, self).form_valid(form)
 
@@ -23,8 +23,10 @@ class TodoList(CreateView):
         context['list'] = Todo.objects.all()
         return context
 
+
 class UpdateTodo(UpdateView):
     template_name = 'todo/update_todo.html'
     form_class = UpdateTodoForm
     model = Todo
     success_url = reverse_lazy('todo:todo_list')
+#success_url = reverse_lazy('todo:todo_list')
