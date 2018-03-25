@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres
+  web:
+    build:
+      context: ./../
+      dockerfile: task3/Dockerfile.dev
+    command: bash react/init.sh
+    volumes:
+      - ./:/code/react
+      - ./../task2:/code/django
+    ports:
+      - "8000:8000"
+      - "3001:3000"
+    depends_on:
+      - db
